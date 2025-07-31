@@ -1,57 +1,35 @@
-# Tailscale for IGEL OS
-
-This recipe creates a Tailscale VPN package for IGEL OS 12.
+# Tailscale VPN for IGEL OS
 
 ## Description
 
-Tailscale is a zero-configuration VPN that creates a secure network between your devices. It uses WireGuard for encrypted point-to-point connections and works seamlessly behind firewalls and NATs.
+Tailscale VPN client packaged for IGEL OS 12. Based on Tailscale version 1.78.1.
 
-## Requirements
+## Package Contents
 
-- IGEL OS 12.3.0 or later
-- For OS 12.5.0+: Compatibility layer for 12.0.x apps
-- Valid Tailscale auth key or interactive authentication
+- tailscale CLI tool
+- tailscaled daemon
+- systemd service configuration
 
-## Build Steps
+## Build Requirements
 
-1. Make sure you have IGEL OS 12.3.0 or later.
-2. Use the IGEL App Creator portal to create and sign your application for OS12.
-3. Deploy the application via UMS.
-
-## Version Bump Procedure
-
-- The technical version of the app is defined in the field `version` in `app.json`.
-- Follow [Semantic Versioning](https://semver.org/).
-- Update the version number in `app.json` before packaging.
-
-## Known Limitations
-
-- Requires IGEL OS 12.3.0 or later.
-- Compatibility layer for 12.0.x apps needed for OS 12.5.0+.
-- A valid Tailscale auth key or interactive authentication is required.
-
-## Configuration
-
-The package includes:
-- `tailscale` CLI tool
-- `tailscaled` daemon
-- Systemd service configuration
-- Persistent storage for authentication state
+- Download Tailscale amd64 deb package from https://pkgs.tailscale.com/stable/
+- Upload the deb file when using IGEL App Creator Portal
 
 ## Usage
 
-1. Deploy the application via UMS
-2. Start a Tailscale session from the desktop
-3. Authenticate using one of these methods:
-   - Interactive: `sudo tailscale up`
-   - Auth key: `sudo tailscale up --authkey=YOUR_KEY`
+After installation, authenticate using:
+```
+sudo tailscale up
+```
 
-## Files
+Or with an auth key:
+```
+sudo tailscale up --authkey=YOUR_KEY
+```
 
-- Binary location: `/services/tailscale/usr/bin/tailscale`
-- Daemon location: `/services/tailscale/usr/sbin/tailscaled`
-- Persistent data: `/services_rw/tailscale/var/lib/tailscale`
+## License
 
-## Version
+Tailscale is distributed under the BSD-3-Clause license.
 
-Current version: 1.78.1+1 (Based on Tailscale 1.78.1)
+---
+**Disclaimer:** THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND.
