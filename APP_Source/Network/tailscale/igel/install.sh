@@ -1,6 +1,10 @@
 #!/bin/bash
 
-# Create systemd service file
+# Create symlinks for binaries
+ln -sf /services/tailscale/usr/bin/tailscale /usr/bin/tailscale
+ln -sf /services/tailscale/usr/sbin/tailscaled /usr/sbin/tailscaled
+
+# Create systemd service file with correct paths
 cat > /lib/systemd/system/tailscaled.service << 'EOF'
 [Unit]
 Description=Tailscale node agent
@@ -9,10 +13,10 @@ After=network-pre.target
 Wants=network-pre.target
 
 [Service]
-EnvironmentFile=-/etc/default/tailscaled
-ExecStartPre=/usr/sbin/tailscaled --cleanup
-ExecStart=/usr/sbin/tailscaled --state=/var/lib/tailscale/tailscaled.state --socket=/run/tailscale/tailscaled.sock --port=$PORT $FLAGS
-ExecStopPost=/usr/sbin/tailscaled --cleanup
+EnvironmentFile=-/services/tailscale/etc/default/tailscaled
+ExecStartPre=/services/tailscale/usr/sbin/tailscaled --cleanup
+ExecStart=/services/tailscale/usr/sbin/tailscaled --state=/var/lib/tailscale/tailscaled.state --socket=/run/tailscale/tailscaled.sock
+ExecStopPost=/services/tailscale/usr/sbin/tailscaled --cleanup
 Restart=on-failure
 RuntimeDirectory=tailscale
 RuntimeDirectoryMode=0755
