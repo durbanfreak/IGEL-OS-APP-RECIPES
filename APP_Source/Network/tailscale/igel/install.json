@@ -4,7 +4,8 @@
     "excludes": [
       "usr/share/applications.*",
       "usr/share/doc.*",
-      "usr/share/man.*"
+      "usr/share/man.*",
+      "lib/systemd/.*"
     ]
   }
 ]

@@ -1,0 +1,8 @@
+[
+  {
+    "path": "/var/lib/tailscale",
+    "owner": "0:0",
+    "permissions": "700",
+    "persistent": true
+  }
+]
